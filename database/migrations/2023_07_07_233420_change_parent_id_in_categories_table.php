@@ -15,11 +15,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->integer('parent_id')->nulllable()->change();
+            $table->integer('parent_id')->nulllable(false)->default(0)->change();
 
         });
-        DB::statement("UPDATE categories SET parent_id = 0 WHERE parent_id IS NULL");
-        DB::statement('ALTER TABLE categories MODIFY parent_id INT NOT NULL');
+
     }
 
     /**
@@ -30,9 +29,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->integer('parent_id')->nulllable(true)->change();
-
+            $table->integer('parent_id')->nulllable(true)->default(null)->change();
         });
-        DB::statement('ALTER TABLE categories MODIFY parent_id INT NULL');
     }
 };

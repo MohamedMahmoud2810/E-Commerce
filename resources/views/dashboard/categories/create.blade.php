@@ -2,6 +2,7 @@
 
 @section('content')
 
+
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -14,7 +15,7 @@
 <div class="container bg-dark w-75 p-5">
     <div class="row justify-content-center">
         <div class="col-md-10 justify-content-center">
-            <form class="needs-validation" action="{{route('dashboard.category.store')}}" method="POST">
+            <form class="needs-validation" action="{{route('dashboard.category.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form">
                 <div class="form-group ">
@@ -24,7 +25,8 @@
 
                 <div class="form-group">
                     <label for="validationCustom02" class="mb-1 me-5">القسم الرئيسي</label>
-                    <select name="parent_id" id="validationCustom02" class="form-control me-5 w-50">
+                    <select name="parent_id" id="validationCustom02" class="form-control me-5 w-50 text-light">
+                        <option value="" >قسم رئيسي</option>
                         @foreach ($categories as $category)
                             <option value="{{$category->id}}">{{$category->name}}</option>
                         @endforeach

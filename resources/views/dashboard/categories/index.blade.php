@@ -2,6 +2,7 @@
 
 
 @section ('content')
+
 <div class="page-body">
 <!-- Container-fluid starts-->
 <div class="container-fluid">
@@ -57,7 +58,6 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Image</th>
-                                        <th>Parent</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -66,8 +66,11 @@
                                         <tr>
                                             <td class="text-light">{{$category->id}}</td>
                                             <td class="text-light">{{$category->name}}</td>
-                                            <td class="text-light"><img width="100px" src="{{asset($category->image)}}" alt="cover"></td>
-                                            <td class="text-light">{{$category->parent_id}}</td>
+                                            <td class="text-light">@if ($category->image)
+                                                                        <img width="200px" src="{{asset($category->image)}}" alt="{{ $category->image}}">
+                                                                    @else
+                                                                        No Image Available
+                                                                    @endif</td>
                                             <td class="text-light"><a href="{{Route('dashboard.category.edit', $category->id)}}" class="edit btn btn-success btn-sm" ><i class="fa
                                                 fa-edit"></i>Edit</a>
                                                 <a href="{{route('dashboard.category.delete' , $category->id)}}" class="delete btn btn-danger btn-sm">

@@ -2,38 +2,49 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Dashboard\Categories\CategoryStoreRequest;
-use App\models\Category;
-use Yajra\DataTables\Facades\DataTables;
 use App\Utils\ImageUpload;
-use Illuminate\Http\Request;
+use App\Repositories\CategoryRepository;
 
 /**
  * Class CategoryService.
  */
 class CategoryService
 {
+    public $CategoryRepository;
+    public function __construct(CategoryRepository $CategoryRepository)
+    {
+        $this->CategoryRepository = $CategoryRepository;
+    }
     public function getAllCategories()
     {
-        return Category::paginate(15);
+        return $this->CategoryRepository->getAllCategories();
     }
 
+
+
     public function store($params){
-        $params['parent_id'] = $params['id'] ?? 0;
-        return Category::create($params);
+        $params['parent_id'] = $params['parent_id'] ?? 0;
+        if(isset($params['image'])){
+            $params['image'] = ImageUpload::uploadImage($params['image']);
+        }
+
+        return $this->CategoryRepository->store($params);
     }
 
     public function getById($id , $children = false){
-        $query =  Category::where('id' , $id);
-        if($children){
-            $query->withCount('child');
-        }
-        return $query->firstOrFail();
+        return $this->CategoryRepository->getByID($id , $children);
     }
 
     public function update($id , $params){
-        $category = $this->getById($id);
+        $category = $this->CategoryRepository->getById($id);
+        if(isset($params['image'])){
+            $params['image'] = ImageUpload::uploadImage($params['image']);
+        }
         $params['parent_id'] = $params['id'] ?? 0;
-        return $category->update($params);
+        return $this->CategoryRepository->update($category , $params);
+    }
+
+    public function delete($params){
+        return $this->CategoryRepository->delete($params);
     }
 }

@@ -8,7 +8,6 @@ use App\Http\Requests\Dashboard\Categories\CategoryStoreRequest;
 use App\Http\Requests\Dashboard\Categories\CategoryUpdateRequest;
 use App\Models\Category;
 use App\Services\CategoryService;
-use App\Utils\ImageUpload;
 use Illuminate\Http\Request;
 
 
@@ -60,8 +59,9 @@ class CategoryController extends Controller
      */
     public function store(CategoryStoreRequest $request)
     {
-        $this->categoryService->store($request->validated());
 
+        $this->categoryService->store($request->validated());
+        return redirect()->route('dashboard.category.index')->with('success', 'Category updated successfully');
     }
 
     /**
@@ -94,13 +94,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryUpdateRequest $request , $id , Category $mainCategories)
+    public function update(CategoryUpdateRequest $request , $id)
     {
         $this->categoryService->update($id , $request->validated());
-        if($request->has('image')){
-            $image = ImageUpload::uploadImage($request->image , 100 , 200 , 'categories/');
-            $mainCategories->update(['image'=>$image]);
-        }
         return redirect()->route('dashboard.category.index' , $id)->with('success', 'Category updated successfully');
     }
 
@@ -112,7 +108,7 @@ class CategoryController extends Controller
      */
     public function delete($id)
     {
-        Category::find($id)->delete();
+        $this->categoryService->delete($id);
         return redirect()->route('dashboard.category.index')->with('success', 'Category deleted successfully');
     }
 }

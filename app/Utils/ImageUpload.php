@@ -23,7 +23,7 @@ class ImageUpload
                 $constraint->upsize();
             })->stream();
             Storage::disk('images')->put($imageName.$path, $image);
-            return $imageName.$path ;
+            return $path.$imageName;
         }
     }
 
