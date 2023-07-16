@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('description');
             $table->decimal('price' , 8 , 2)->nullable();
             $table->decimal('discount_price' , 8 , 2)->nullable();
+            $table->text('color')->nullable();
+            $table->text('size')->nullable();
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();

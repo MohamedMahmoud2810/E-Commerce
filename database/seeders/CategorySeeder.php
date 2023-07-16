@@ -18,6 +18,8 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        Category::factory(20)->create();
+        Category::factory(20)->create([
+            'parent_id' => 0,
+        ]);
     }
 }

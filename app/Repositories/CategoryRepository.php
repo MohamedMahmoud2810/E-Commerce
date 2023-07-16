@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Category;
 
-class CategoryRepository
+class CategoryRepository implements RepositoryInterface
 {
     public $category;
     public function __construct(Category $category)
@@ -12,7 +12,7 @@ class CategoryRepository
         $this->category = $category;
     }
 
-    public function getAllCategories()
+    public function getAll()
     {
         return $this->category->paginate(10);
     }

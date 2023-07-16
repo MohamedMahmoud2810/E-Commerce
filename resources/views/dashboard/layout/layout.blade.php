@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{asset('admin')}}/assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="{{asset('admin')}}/assets/vendors/owl-carousel-2/owl.carousel.min.css">
     <link rel="stylesheet" href="{{asset('admin')}}/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
+      <link rel="stylesheet" href="{{asset('admin')}}/assets/select2-4.1.0-rc.0/dist/css/select2.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
@@ -66,16 +67,10 @@
     <script>
         $('.dropify').dropify();
     </script>
-
+    <script src="{{asset('admin')}}/assets/select2-4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-    <script>
-        $(document).ready(function){
-            $('#table_id').datatable({
-                processing:true;
-            });
-        }
-    </script>
+
     @stack('script')
 
 </body>

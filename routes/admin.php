@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\dashboard\IndexController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Requests\Dashboard\SettingUpdateRequest;
 use Doctrine\DBAL\Schema\Index;
 use Illuminate\Routing\Route as RoutingRoute;
@@ -30,6 +31,9 @@ Route::group(['as'=>'dashboard.'] , function(){
     Route::resource('user', UserController::class)->except('show' , 'destroy');
     Route::get('user/delete/{user}',[UserController::class , 'delete'])->name('user.delete');
     Route::get('category/delete/{category}',[CategoryController::class , 'delete'])->name('category.delete');
+    Route::resource('product', ProductController::class)->except('show','destroy');
+    Route::delete('product/{product}', [ProductController::class, 'delete'])->name('product.delete');
+    Route::delete('/images/{images}', [ProductController::class, 'deleteImage'])->name('deleteImage');
 
 });
 
