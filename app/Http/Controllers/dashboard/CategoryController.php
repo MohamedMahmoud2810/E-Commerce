@@ -94,7 +94,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update( $request , $id)
+    public function update(CategoryUpdateRequest $request , $id)
     {
         $this->categoryService->update($id , $request->validated());
         return redirect()->route('dashboard.category.index' , $id)->with('success', 'Category updated successfully');

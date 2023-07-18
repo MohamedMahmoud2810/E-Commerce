@@ -19,7 +19,8 @@ class ProductRepository implements RepositoryInterface
 
     public function getAllProducts()
     {
-        return $this->product->paginate(15);
+//        return $this->product->category->paginate(15);
+        return Product::with('category')->paginate(15);
     }
 
     public function store($params)
@@ -44,9 +45,6 @@ class ProductRepository implements RepositoryInterface
         return $images;
     }
 
-    public function addColor($product , $params){
-        $product->productColor()->createMany($params['colors']);
-    }
 
     public function getById($id)
     {
@@ -55,7 +53,6 @@ class ProductRepository implements RepositoryInterface
 
     public function update($id, $params)
     {
-
         $product = $this->getById($id);
         $product->update($params);
         $images = $this->uploadMultipleImages($params, $product);

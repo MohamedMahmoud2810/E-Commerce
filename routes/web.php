@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\site\ProductController;
+use App\Http\Controllers\site\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +21,5 @@ Route::get('/dashboard', function () {
 
 Auth::routes();
 
-Route::get('/', function(){
-    return view('welcome');
-})->name('home');
+Route::get('/' , [HomeController::class , 'index' ])->name('index');
+Route::get('product/{product}' ,[ProductController::class , 'show'])->name('product.show');

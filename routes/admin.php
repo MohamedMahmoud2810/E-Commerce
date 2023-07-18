@@ -34,6 +34,5 @@ Route::group(['as'=>'dashboard.'] , function(){
     Route::resource('product', ProductController::class)->except('show','destroy');
     Route::delete('product/{product}', [ProductController::class, 'delete'])->name('product.delete');
     Route::delete('/images/{images}', [ProductController::class, 'deleteImage'])->name('deleteImage');
-
 });
 

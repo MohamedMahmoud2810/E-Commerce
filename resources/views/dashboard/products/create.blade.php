@@ -61,6 +61,11 @@
                             </select>
                         </div>
 
+                        <div class="form-group mt-3 w-75 me-5">
+                            <label for="validationCustom02" class="mb-1 col-form-label">الكمية المتاحة </label>
+                            <input class="form-control quantity text-light" type="number " name="quantity">
+                        </div>
+
                         <div class="form-group mb-0 w-75 me-5">
                             <label for="validationCustom03" class="mb-1"> صور المنتج</label>
                             <input class="form-control dropify" id="validationCustom03" type="file" name="images[]" multiple="multiple">

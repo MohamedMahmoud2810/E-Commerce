@@ -44,7 +44,7 @@ class CategoryService
         return $this->CategoryRepository->update($category , $params);
     }
 
-//    public function delete($params){
-//        return $this->CategoryRepository->delete($params);
-//    }
+    public function delete($params){
+        return $this->CategoryRepository->delete($params);
+    }
 }

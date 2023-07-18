@@ -30,12 +30,13 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $categories = $this->categoryService->getAllCategories();
         $products = $this->productService->getAllProducts();
         if ($products === null) {
             $message = "No products are available.";
-            return view('dashboard.products.index', compact('message'));
+            return view('dashboard.products.index', compact('message' , 'categories'));
         } else {
-            return view('dashboard.products.index', compact('products'));
+            return view('dashboard.products.index', compact('products' , 'categories'));
         }
     }
 

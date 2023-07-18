@@ -47,4 +47,16 @@ class LoginController extends Controller
             redirect()->route('index');
         }
     }
+
+    public function login(Request $request)
+    {
+        // Perform login logic here
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            return view('site.layout.layout', compact('user'));
+        }
+
+        'You Are not authorithed';
+    }
 }

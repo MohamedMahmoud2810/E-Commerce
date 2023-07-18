@@ -36,6 +36,7 @@ class StoreProductRequest extends FormRequest
             'images' => 'nullable|array',
             'images.*' => 'nullable|image|mimes:png,jpg,jpeg,gif,svg|max:2048',
             'discount_price' => 'nullable|numeric',
+            'quantity' => 'nullable|numeric'
 
         ];
     }

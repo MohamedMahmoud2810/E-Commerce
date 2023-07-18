@@ -64,6 +64,7 @@
                                             <th>Category</th>
                                             <th>Colors</th>
                                             <th>sizes</th>
+                                            <th>Quantity</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -83,9 +84,10 @@
                                                 <td class="text-light">{{$product->description}}</td>
                                                 <td class="text-light">{{$product->price}}</td>
                                                 <td class="text-light">{{$product->discount_price}}</td>
-                                                <td class="text-light">{{$product->category_id}}
+                                                <td class="text-light">{{$product->category->name}}</td>
                                                 <td class="text-light">{{$product->color}}</td>
                                                 <td class="text-light">{{$product->size}}</td>
+                                                <td class="text-light">{{$product->quantity}}</td>
                                                 <td class="text-light"><a href="{{Route('dashboard.product.edit', $product->id)}}" class="edit btn btn-success btn-sm" ><i class="fa
                                                 fa-edit"></i>Edit</a>
 
