@@ -7,6 +7,11 @@
                 <div class=" d-flex align-items-center auth login-bg">
                     <div class="card col-lg-4 mx-auto">
                         <div class="card-body px-5 py-5 ">
+                            @if(session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
                             <h3 class="card-title text-left mb-3">Login</h3>
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf

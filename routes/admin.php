@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,5 +35,9 @@ Route::group(['as'=>'dashboard.'] , function(){
     Route::resource('product', ProductController::class)->except('show','destroy');
     Route::delete('product/{product}', [ProductController::class, 'delete'])->name('product.delete');
     Route::delete('/images/{images}', [ProductController::class, 'deleteImage'])->name('deleteImage');
+    Route::post('/logout', function () {
+        Auth::logout();
+        return redirect()->route('site.home');
+    })->name('logout');
 });
 

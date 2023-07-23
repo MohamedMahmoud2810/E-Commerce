@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -38,25 +40,26 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function redirectTo()
-    {
-        if(auth()->user()->type == 'admin'){
-            return '/dashboard/index';
-        }
-        else{
-            redirect()->route('index');
-        }
-    }
+
 
     public function login(Request $request)
     {
-        // Perform login logic here
-
-        if (Auth::check()) {
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            return view('site.layout.layout', compact('user'));
+            return redirect()->route('index');
         }
 
-        'You Are not authorithed';
+        return redirect()->route('login')->with('error', 'You are not authorized to access this page.');
     }
+
+//    public function redirectTo()
+//    {
+//        if(Auth::user()->type == 'admin'){
+//            return '/dashboard/index';
+//        }
+//        else{
+//            redirect()->route('index');
+//        }
+//    }
 }
