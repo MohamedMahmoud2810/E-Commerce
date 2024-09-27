@@ -1,6 +1,5 @@
 [build]
   command = "composer install && php artisan config:cache"
-  ignore = "git diff --quiet HEAD^ HEAD ."
   publish = "public"
   environment = { PHP_VERSION = "8.2" }
 
