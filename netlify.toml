@@ -1,4 +1,4 @@
 [build]
   command = "composer install"
 [build.environment]
-  PHP_VERSION = "8.1"
+  PHP_VERSION = "8.2"
