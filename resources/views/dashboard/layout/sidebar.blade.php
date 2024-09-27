@@ -79,8 +79,8 @@
             </a>
         </li>
 
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="pages/tables/basic-table.html">
+        <li class="nav-item menu-items  {{Request::is('admin-orders') ? 'active' : ''}}">
+            <a class="nav-link" href="{{route('dashboard.order.index')}}">
             <span class="menu-icon">
                 <i class="mdi mdi-package-variant"></i>
             </span>

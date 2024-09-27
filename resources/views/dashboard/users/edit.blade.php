@@ -9,7 +9,7 @@
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-xl-9">
 
-                    <h1 class="text-white mb-4">إضافة مستخدم جديد</h1>
+                    <h1 class="text-white mb-4">تعديل بيانات المستخدم</h1>
 
                     <div class="card" style="border-radius: 15px;">
                         <div class="card-body">

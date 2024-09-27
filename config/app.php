@@ -199,6 +199,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class
 
     ],
 
@@ -219,6 +220,7 @@ return [
         'DataTables'=>Yajra\DataTables\DataTables::class,
         'ColumnSortable' =>KyslikColumnSortableColumnSortableServiceProvider::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ])->toArray(),
 
 ];

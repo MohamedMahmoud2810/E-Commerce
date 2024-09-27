@@ -5,7 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\site\ProductController;
 use App\Http\Controllers\site\HomeController;
 use App\Http\Controllers\site\CartController;
+use App\Http\Controllers\site\CategoryController;
 use App\Http\Controllers\site\CheckOutController;
+use App\Http\Controllers\site\OrderController;
+use App\Http\Controllers\site\orderController as SiteOrderController;
 use App\Http\Controllers\site\UserAddressController;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,7 +35,7 @@ Route::get('/' , [HomeController::class , 'index' ])->name('index');
 Route::get('product/{product}' ,[ProductController::class , 'show'])->name('product.show');
 Route::post('/cart' , [CartController::class , 'store'] )
     ->name('cart.store');
-
+Route::resource('categories', CategoryController::class);
 
 Route::middleware(['auth'])->group(function(){
     //cart
@@ -43,7 +46,11 @@ Route::middleware(['auth'])->group(function(){
     //checkout
     Route::get('checkout' , [CheckOutController::class , 'index'])->name('checkout.index');
     Route::POST('place-order' , [CheckOutController::class , 'placeOrder'])->name('placeOrder');
-    // Route::resource('user_address', UserAddressController::class);
+
+
+    //order
+    Route::get('orders' , [orderController::class , 'index'])->name('order.index');
+    Route::get('order/{order}' , [OrderController::class , 'show'])->name('order.show');
 });
 Route::get('/logout', function () {
     Auth::logout();

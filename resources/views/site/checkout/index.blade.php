@@ -16,39 +16,39 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6 form-group">
                                         <label for="name">Name : </label>
-                                        <input type="text" class="form-control" id="name" name="name"  placeholder="name" required value="{{ $userAddress->name}}">
+                                        <input type="text" class="form-control" id="name" name="name"  placeholder="name" required value="{{$userAddress ? $userAddress->name : ''}}">
                                     </div>
                                     <div class="col-sm-12 col-md-6 form-group">
                                         <label for="surname">Surname:</label>
-                                        <input type="text" class="form-control" id="surname" name="surname" placeholder="Surname" required value="{{ $userAddress->surname}}">
+                                        <input type="text" class="form-control" id="surname" name="surname" placeholder="Surname" required value="{{$userAddress ? $userAddress->surname : ''}}">
                                     </div>
                                     <div class="col-sm-12 col-md-6 form-group">
                                         <label for="address">Address:</label>
-                                        <input type="text" class="form-control" id="address" name="address" placeholder="Address" required value="{{ $userAddress->address}}">
+                                        <input type="text" class="form-control" id="address" name="address" placeholder="Address" required value="{{$userAddress ? $userAddress->address : ''}}">
                                     </div>
                                     <div class="col-sm-12 col-md-6 form-group">
                                         <label for="city">City:</label>
-                                        <input type="text" class="form-control" id="city" name="city" placeholder="City" required value="{{ $userAddress->city}}">
+                                        <input type="text" class="form-control" id="city" name="city" placeholder="City" required value="{{$userAddress ? $userAddress->city : ''}}">
                                     </div>
                                     <div class="col-sm-12 col-md-6 form-group">
                                         <label for="state">State:</label>
-                                        <input type="text" class="form-control" id="state" name="state" placeholder="State" required value="{{ $userAddress->state}}">
+                                        <input type="text" class="form-control" id="state" name="state" placeholder="State" required value="{{$userAddress ? $userAddress->state : ''}}">
                                     </div>
                                     <div class="col-sm-12 col-md-6 form-group">
                                         <label for="country">Country:</label>
-                                        <input type="text" class="form-control" id="country" name="country" placeholder="Country" required value="{{ $userAddress->country}}">
+                                        <input type="text" class="form-control" id="country" name="country" placeholder="Country" required value="{{$userAddress ? $userAddress->country : ''}}">
                                     </div>
                                     <div class="col-sm-12 col-md-6 form-group">
                                         <label for="Postal Code">Postal Code:</label>
-                                        <input type="text" class="form-control" id="Postal Code" name="potal_code" placeholder="Postal Code" required value="{{ $userAddress->potal_code}}">
+                                        <input type="text" class="form-control" id="Postal Code" name="postal_code" placeholder="Postal Code" required value="{{$userAddress ? $userAddress->postal_code : ''}}">
                                     </div>
                                     <div class="col-sm-12 col-md-6 form-group">
                                         <label for="phone">Phone:</label>
-                                        <input type="text" class="form-control" id="Phone" name="phone" placeholder="Phone" required value="{{ $userAddress->phone}}">
+                                        <input type="text" class="form-control" id="Phone" name="phone" placeholder="Phone" required value="{{$userAddress ? $userAddress->phone : ''}}">
                                     </div>
                                     <div class="col-sm-12 col-md-6 form-group">
-                                        <label for="E-mail">E-mail:</label>
-                                        <input type="text" class="form-control" id="E-mail" name="email" placeholder="E-mail" value="{{ $userAddress->email}}">
+                                        <label for="email">E-mail:</label>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" value="{{$userAddress ? $userAddress->email : ''}}">
                                     </div>
 
                                 </div>
@@ -73,20 +73,20 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($cartItems as $item)
-                                        @if($item->associatedModel->quantity > $item->quantity)
                                         <tr>
                                             <td>{{$item->name}}</td>
                                             <td>{{$item->quantity}}</td>
                                             <td>{{$item->price}}</td>
                                         </tr>
-                                        @endif
                                         @endforeach
                                     </tbody>
                                 </table>
                                 <hr>
 
                                 <h5>Total Price : {{$total}} EGP
-                                    <button type="submit" class="btn btn-primary float-right">Place The Order</button>
+                                    @if($total>0)
+                                    <button type="submit" class="btn btn-primary float-right"> Place The Order</button>
+                                    @endif
                                 </h5>
 
 

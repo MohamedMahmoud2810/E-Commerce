@@ -24,6 +24,25 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{asset('admin')}}/assets/images/favicon.png" />
     <link rel="stylesheet" type="text/css" href="{{asset('admin')}}/dropify.css">
+      <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+      <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+      <script>
+
+          // Enable pusher logging - don't include this in production
+          Pusher.logToConsole = true;
+
+          var pusher = new Pusher('4c8ceab0128d63d5fe82', {
+              cluster: 'ap1'
+          });
+
+          const channel = pusher.subscribe('place-order');
+          channel.bind('user-order', function(data) {
+              toastr.info(JSON.stringify(data.name) + 'Has Placed An Order')
+          });
+      </script>
 </head>
 <body>
     <div class="container-scroller">
@@ -50,6 +69,7 @@
     <script src="{{asset('admin')}}/{{asset('admin')}}/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
     <script src="{{asset('admin')}}/{{asset('admin')}}/assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
     <script src="{{asset('admin')}}/{{asset('admin')}}/assets/js/jquery.cookie.js" type="text/javascript"></script>
+
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="{{asset('admin')}}/{{asset('admin')}}/assets/js/off-canvas.js"></script>

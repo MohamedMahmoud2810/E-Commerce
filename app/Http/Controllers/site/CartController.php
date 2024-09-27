@@ -29,10 +29,9 @@ class CartController extends Controller
     public function show(){
         $userId = auth()->user() ? auth()->user()->id : null;
         $cartItems = $userId ? Cart::session($userId)->getContent() : null;
-        // dd($cartItems);
         $total = 0;
         foreach ($cartItems as $item) {
-            if ($item->associatedModel->quantity > $item['quantity']) {
+            if ($item->associatedModel->quantity > 0) {
                 $total += $item['price'] * $item['quantity'];            }
         }
 

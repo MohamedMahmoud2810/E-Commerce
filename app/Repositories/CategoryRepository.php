@@ -4,36 +4,40 @@ namespace App\Repositories;
 
 use App\Models\Category;
 
-class CategoryRepository implements RepositoryInterface
+class CategoryRepository implements CategoryRepositoryInterface
 {
-    public $category;
-    public function __construct(Category $category)
+    public function getAllCategories()
     {
-        $this->category = $category;
+        return Category::all();
     }
 
-    public function getAll()
+    public function getCategoryById($id)
     {
-        return $this->category->paginate(10);
+        return Category::find($id);
     }
 
-    public function store($params){
-        return $this->category->create($params);
+    public function createCategory(array $data)
+    {
+        return Category::create($data);
     }
 
-    public function getById($id , $childrenCount = false){
-        $query =  $this->category->where('id' , $id);
-        if($childrenCount){
-            $query->withCount('child');
+    public function updateCategory($id, array $data)
+    {
+        $category = Category::find($id);
+        if ($category) {
+            $category->update($data);
+            return $category;
         }
-        return $query->firstOrFail();
+        return null;
     }
 
-    public function update($category , $params){
-        return $category->update($params);
-    }
-
-    public function delete($id){
-        return Category::find($id)->delete();
+    public function deleteCategory($id)
+    {
+        $category = Category::find($id);
+        if ($category) {
+            $category->delete();
+            return true;
+        }
+        return false;
     }
 }

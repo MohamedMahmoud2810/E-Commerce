@@ -18,6 +18,9 @@
 
     <div class="container my-3">
         <div class="card shadow product_data">
+            @if ($cartItems->count()>0)
+
+
             @foreach($cartItems as $item)
             <div class="card-body">
                 <div class="row">
@@ -32,7 +35,7 @@
                             <label class="col-sm-5 col-form-label">Quantity</label>
                             <div class="col-sm-7">
                                 <!-- Assuming you have a form for the cart items -->
-                                @if($item->associatedModel->quantity > $item->quantity)
+                                @if($item->associatedModel->quantity > 0)
                                 <form action="{{ route('cartItem.update', $item->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
@@ -56,13 +59,19 @@
 
                 </div>
             </div>
-
+            <div class="card-footer">
+                <h5>Total Price : {{$total}}
+                    <a href="{{route('checkout.index')}}" class="btn btn-outline-success float-right">Proceed to checkout</a>
+                </h5>
+            </div>
     @endforeach
-    <div class="card-footer">
-        <h5>Total Price : {{$total}}
-            <a href="{{route('checkout.index')}}" class="btn btn-outline-success float-right">Proceed to checkout</a>
-        </h5>
-    </div>
+    @else
+            <div class="cart-body text-center">
+                <h2>Your  <i class="mdi mdi-cart"></i>Cart Is Empty</h2>
+                <a href="{{route('index')}}" class="btn btn-primary float-right m-3">Continue Shopping</a>
+            </div>
+    @endif
+
     </div>
 </div>
 

@@ -38,10 +38,11 @@
                 @endif</p>
                 <p><b>Condition : </b>New</p>
                 <p><b>Brand :  </b> XYZ Company </p>
+                <p><b>Color :  {{$product->color}}</b></p>
                 <h3 class="price" style="color: #FE980F ; font-size: 26px ; padding-top: 20px">{{$product->price}} EGP</h3>
-                @if($product->quantity>0)
+                {{-- @if($product->quantity>0)
                     <button type="button" class="btn btn-primary cart">Add To Cart</button>
-                @endif
+                @endif --}}
 
                 <div class="d-flex justify-content-center">
 

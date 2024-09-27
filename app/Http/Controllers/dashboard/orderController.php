@@ -1,12 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\site;
+namespace App\Http\Controllers\dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderCompleteMail;
+use App\Mail\PlaceOrderMailable;
+use App\Models\Order;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
-class UserAddressController extends Controller
+class orderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +20,9 @@ class UserAddressController extends Controller
      */
     public function index()
     {
-        $userAddresses = UserAddress::all();
-        return view('users.userAddresses.index', compact('userAddresses'));
+
+        $orders = Order::where('status' , '0')->paginate(10);
+        return view('dashboard.orders.index' , compact('orders'));
     }
 
     /**
@@ -48,7 +54,8 @@ class UserAddressController extends Controller
      */
     public function show($id)
     {
-        //
+        $orders = Order::where('id' , $id)->first();
+        return view('dashboard.orders.view' , compact('orders'));
     }
 
     /**
@@ -71,7 +78,17 @@ class UserAddressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'status' => 'required|integer',
+        ]);
+        $orders = Order::find($id);
+        $orders->status = $request->input('status');
+        $user = Auth::user();
+        $userAddress = $user->userAddress;
+        $orders->update();
+        Mail::to($orders->email)->send(new OrderCompleteMail( $userAddress ));
+
+        return redirect()->route('dashboard.order.index')->with('status',"Order Updated Successfully");
     }
 
     /**

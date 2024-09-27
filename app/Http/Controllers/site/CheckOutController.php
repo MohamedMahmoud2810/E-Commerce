@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\site;
 
+use App\Events\PlaceOrder;
 use App\Http\Controllers\Controller;
+use App\Mail\PlaceOrderMailable;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\UserAddress;
 use Cart;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +32,7 @@ class CheckOutController extends Controller
         $user = Auth::user();
         $userAddress = $user->userAddress;
         foreach ($cartItems as $item) {
-            if ($item->associatedModel->quantity > $item['quantity']) {
+            if ($item->associatedModel->quantity > 0) {
                 $total += $item['price'] * $item['quantity'];
                 $item->associatedModel->quantity -= $item['quantity'];
                 $item->associatedModel->save();
@@ -75,7 +78,7 @@ class CheckOutController extends Controller
         $order->address = $request->input('address');
         $order->city = $request->input('city');
         $order->country = $request->input('country');
-        $order->potal_code = $request->input('potal_code');
+        $order->potal_code = $request->input('postal_code');
         $order->phone = $request->input('phone');
         $order->email = $request->input('email');
         $order->status = 0;
@@ -107,65 +110,27 @@ class CheckOutController extends Controller
         if(!$userAddress) {
             $userAddress = new UserAddress();
             $userAddress->user_id = $userId;
-            $userAddress->name = $request->input('surname');
+            $userAddress->name = $request->input('name');
             $userAddress->surname = $request->input('surname');
             $userAddress->address = $request->input('address');
             $userAddress->city = $request->input('city');
             $userAddress->state = $request->input('state');
             $userAddress->country = $request->input('country');
-            $userAddress->postal_code = $request->input('potal_code');
+            $userAddress->postal_code = $request->input('postal_code');
             $userAddress->phone = $request->input('phone');
             $userAddress->email = $request->input('email');
             $userAddress->save();
         }
 
+        Mail::to($request->email)->send(new PlaceOrderMailable($cartItems , $userAddress , $total));
+
+        $name = $userAddress->name;
+        event(new PlaceOrder($name));
+
         Cart::session($userId)->clear();
+
     }
     return redirect()->route('index');
 }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

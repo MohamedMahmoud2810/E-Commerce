@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Cart;
@@ -13,6 +14,9 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $categories = Category::all();
+
+
 
 
 //        Cart::session($userId)->clear();
@@ -53,7 +57,7 @@ class HomeController extends Controller
 
 //        $items = Cart::session($user->id)->getContent()->toArray();
 //        dd($add_to_cart,$total,$cartTotalQuantity,$items);
-        return view('site.index');
+        return view('site.index' , compact('categories'));
     }
 
 

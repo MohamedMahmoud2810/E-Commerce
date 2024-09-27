@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\dashboard\IndexController;
+use App\Http\Controllers\dashboard\orderController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Dashboard\ProductController;
@@ -35,6 +36,10 @@ Route::group(['as'=>'dashboard.'] , function(){
     Route::resource('product', ProductController::class)->except('show','destroy');
     Route::delete('product/{product}', [ProductController::class, 'delete'])->name('product.delete');
     Route::delete('/images/{images}', [ProductController::class, 'deleteImage'])->name('deleteImage');
+    Route::get('admin-orders' , [orderController::class , 'index'])->name('order.index');
+    Route::get('admin-order/{order}' , [OrderController::class , 'show'])->name('order.show');
+    Route::put('admin-order-update/{order}' , [orderController::class , 'update'])->name('order.update');
+
     Route::post('/logout', function () {
         Auth::logout();
         return redirect()->route('site.home');

@@ -26,7 +26,6 @@ class ProductsView extends Component
     {
 
         $userId = $this->user ? $this->user->id : null;
-//        Cart::session($userId)->clear();
         $cart = $userId ? Cart::session($userId)->getContent() : null;
         return view('livewire.products-view' , compact('cart'));
     }
