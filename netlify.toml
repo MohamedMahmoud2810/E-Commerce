@@ -1,5 +1,5 @@
 [build]
-  command = "composer install && php artisan key:generate && php artisan config:cache"
+  command = "composer install && php artisan config:cache"
   publish = "public"
 [build.environment]
   PHP_VERSION = "8.2"
