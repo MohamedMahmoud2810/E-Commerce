@@ -1,5 +1,9 @@
 [build]
   command = "composer install && php artisan config:cache"
   publish = "public"
-[build.environment]
-  PHP_VERSION = "8.2"
+  environment = { PHP_VERSION = "8.2" }
+
+[[redirects]]
+  from = "/node_modules/*"
+  to = "/404.html"
+  status = 404
